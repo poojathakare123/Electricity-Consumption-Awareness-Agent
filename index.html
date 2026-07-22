@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Electricity Consumption Awareness Assistant</title>
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, "Segoe UI", system-ui, sans-serif;
+      background-color: #f0f4f8;
+      color: #1f2328;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    header {
+      background-color: #1a3c5e;
+      color: #ffffff;
+      padding: 18px 32px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.18);
+    }
+
+    header svg {
+      flex-shrink: 0;
+    }
+
+    header h1 {
+      font-size: 1.25rem;
+      font-weight: 600;
+      letter-spacing: 0.01em;
+    }
+
+    header p {
+      font-size: 0.82rem;
+      color: #a8c4e0;
+      margin-top: 2px;
+    }
+
+    main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 40px 20px 60px;
+    }
+
+    .intro-card {
+      background: #ffffff;
+      border: 1px solid #e5e7eb;
+      border-radius: 10px;
+      max-width: 720px;
+      width: 100%;
+      padding: 28px 32px;
+      margin-bottom: 32px;
+    }
+
+    .intro-card h2 {
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: #1a3c5e;
+      margin-bottom: 10px;
+    }
+
+    .intro-card p {
+      font-size: 0.9rem;
+      color: #57606a;
+      line-height: 1.65;
+    }
+
+    .tips-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 14px;
+      margin-top: 20px;
+    }
+
+    .tip-item {
+      background: #f7f8fa;
+      border: 1px solid #e5e7eb;
+      border-radius: 8px;
+      padding: 14px 16px;
+    }
+
+    .tip-item .tip-label {
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: #3b82d4;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      margin-bottom: 4px;
+    }
+
+    .tip-item p {
+      font-size: 0.85rem;
+      color: #1f2328;
+      line-height: 1.5;
+    }
+
+    #root {
+      width: 100%;
+      max-width: 720px;
+      min-height: 520px;
+      border-radius: 10px;
+      overflow: hidden;
+      border: 1px solid #e5e7eb;
+      background: #ffffff;
+    }
+
+    footer {
+      text-align: center;
+      font-size: 0.75rem;
+      color: #57606a;
+      padding: 16px 20px;
+      border-top: 1px solid #e5e7eb;
+      background: #ffffff;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <!-- Lightning bolt icon -->
+    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <path d="M13 2L4.5 13.5H11L10 22L19.5 10.5H13L13 2Z" fill="#f5c842" stroke="#f5c842" stroke-width="1" stroke-linejoin="round"/>
+    </svg>
+    <div>
+      <h1>Electricity Consumption Awareness Assistant</h1>
+      <p>Powered by IBM watsonx Orchestrate</p>
+    </div>
+  </header>
+
+  <main>
+    <div class="intro-card">
+      <h2>How can I help you today?</h2>
+      <p>
+        Ask me anything about your electricity usage, energy-saving tips, bill estimates,
+        appliance consumption, or how to reduce your carbon footprint. I'm here to help
+        you make smarter, more sustainable energy choices.
+      </p>
+      <div class="tips-grid">
+        <div class="tip-item">
+          <div class="tip-label">Try asking</div>
+          <p>"What appliances use the most electricity?"</p>
+        </div>
+        <div class="tip-item">
+          <div class="tip-label">Try asking</div>
+          <p>"How can I lower my monthly electricity bill?"</p>
+        </div>
+        <div class="tip-item">
+          <div class="tip-label">Try asking</div>
+          <p>"What is peak vs off-peak pricing?"</p>
+        </div>
+        <div class="tip-item">
+          <div class="tip-label">Try asking</div>
+          <p>"Tips for energy-efficient heating and cooling?"</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- watsonx Orchestrate chat widget renders here -->
+    <div id="root"></div>
+  </main>
+
+  <footer>
+    &copy; 2025 Electricity Consumption Awareness Assistant &mdash; Made with IBM Bob
+  </footer>
+
+  <script>
+    window.wxOConfiguration = {
+      orchestrationID: "undefined",
+      hostURL: "https://au-syd.watson-orchestrate.cloud.ibm.com",
+      rootElementID: "root",
+      deploymentPlatform: "ibmcloud",
+      crn: "crn:v1:bluemix:public:watsonx-orchestrate:au-syd:a/670bf638e8934e4188b55d617e73c651:87adee07-ae29-4040-b47b-08ad543cca1b::",
+      chatOptions: {
+        agentId: "f9553fd6-02d5-4f67-91d0-1baf6b0ff3f0"
+      }
+    };
+
+    setTimeout(function () {
+      const script = document.createElement('script');
+      script.src = window.wxOConfiguration.hostURL + '/wxochat/wxoLoader.js?embed=true';
+      script.addEventListener('load', function () {
+        wxoLoader.init();
+      });
+      document.head.appendChild(script);
+    }, 0);
+  </script>
+
+</body>
+</html>
